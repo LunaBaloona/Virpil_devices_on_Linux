@@ -105,30 +105,43 @@ LOGFILE="/tmp/joystick.log"
 } 2>&1 | logger --skip-empty
 ```
 
+* Make the file executable by running:
+
+  ```
+  sudo chmod +x /usr/local/bin/joystick-init.sh
+  ```
+
 * That's the main Linux part done. You may want to reboot at this point. 
 
 ## Game fixes - Elite Dangerous
 
 **Find the Steam game ID** 
+
 Assuming we're using steam here, we need to find the Steam game's steam ID, which leads us to the WINE prefix. 
 
 * Right click the game in steam > Properties > Updates. The "App ID" is the game ID. At time of writing, For Elite Dangerous it was 359320. 
+
+**WINE has old configs in the prefix's registry, we need to remove them all**
 
 * Run Regedit from the game's Wine Prefix: (replace [username] and [App ID] for your system and game)
 ```
 WINEPREFIX="/home/[username]/.local/share/Steam/steamapps/compatdata/[App ID]/pfx/" wine regedit
 ```
 
-*  You may want to backup the reg before you proceed - just in case. (Click Registry in the top left > export) 
+*  You may want to backup the reg before you proceed - just in case. (Click Registry in the top left > export)
+  
 *  In regedit, search for any reference to Virpil's USB Vendor ID: 3344, and/or PID, and delete all references to them. Click `HKEY_LOCAL_MACHINE` and search "VID_3344". Click any matches then delete. Repeat for PID "PID_[yourPIDhere]" (Last bit likely not necessary, but we're in orbit and have a nuke button).
+  
 *  Close regedit.
 
+**Getting the game to run with fixes**
    
 * Return to steam and set properties so HIDRAW uses the VID/PID, for all your devices. These are always in 0xVID/0xPID format, each device separated by comma (replace what you need from my example below)
    -  In Steam, right click game > properties > Launch Options text box: 
 ```
 PROTON_ENABLE_HIDRAW=0x3344/0x43f5,0x3344/0x8194,0x03eb/0x2054,0x03eb/0x2046 SDL_JOYSTICK_HIDAPI=0  %command%
 ```
+
 That's it. You can now run the game and should have fully working Joystick and Throttle with all buttons and and all axes detected normally. 
 
 ## Game fixes - Star Citizen
