@@ -7,3 +7,6 @@ A guide on getting Virpil Joystick and throttle working on Linux.
 
 ## Contributing
 If you have additional fixes or improvements, feel free to submit a pull request.
+
+## Credits: 
+Thanks to the100thmonkey on https://forums.frontier.co.uk/ for the deadzone fix. 
