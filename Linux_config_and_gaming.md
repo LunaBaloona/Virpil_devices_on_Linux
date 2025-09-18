@@ -130,7 +130,7 @@ WINEPREFIX="/home/[username]/.local/share/Steam/steamapps/compatdata/[App ID]/pf
 
 *  You may want to backup the reg before you proceed - just in case. (Click Registry in the top left > export)
   
-*  In regedit, search for any reference to Virpil's USB Vendor ID: 3344, and/or PID, and delete all references to them. Click `HKEY_LOCAL_MACHINE` and search "VID_3344". Click any matches then delete. Repeat for PID "PID_[yourPIDhere]" (Last bit likely not necessary, but we're in orbit and have a nuke button).
+*  In regedit, search for any reference to Virpil's USB Vendor ID: 3344, and/or PID, and delete all references to them. Click `HKEY_LOCAL_MACHINE` and search "VID_3344". Click any matches then delete. Repeat for PID "PID_[yourPIDhere]" (Last bit likely not necessary, but we're in orbit and have a nuke button).  Note that it may take a minute or more for any results. Don't worry if it appears nothing's happening. 
   
 *  Close regedit.
 
