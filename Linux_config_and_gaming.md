@@ -47,7 +47,7 @@ sudo usermod -a -G joystick-users [username]
 ```
 
  **Create a udev rules file**
- This will fix detection of our devices in games and fix deadzone for the joystick. 
+ This will fix detection of our devices in games as a real joystick. *Without this, many games detect these as gamepad/controller with several missing functions.* 
 
 * Create the file:
  ```
