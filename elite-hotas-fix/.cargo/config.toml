@@ -1,0 +1,3 @@
+# Building a fully static binary so it runs on any x86_64 Linux distro, no depends on the installed glibc version.
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "target-feature=+crt-static"]
