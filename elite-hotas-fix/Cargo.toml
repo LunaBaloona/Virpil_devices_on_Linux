@@ -5,6 +5,7 @@ edition = "2021"
 description = "Keeps flight sticks and throttles working in Elite Dangerous (and other Proton games) on Linux"
 license = "GPL-3.0-or-later"
 
+# None needed now
 [dependencies]
 
 [profile.release]
