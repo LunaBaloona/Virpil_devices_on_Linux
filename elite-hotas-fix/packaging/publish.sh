@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build and publish one tagged version of elite-hotas-fix to git.sol:
+# Build and publish one tagged version of elite-hotas-fix to github:
 # the release (tarball, packages, SHA256SUMS) and the pacman, apt and dnf
 # package registries. Safe to run again: files already published unchanged
 # are skipped, and a published file that differs stops the script.
@@ -13,8 +13,8 @@
 # write:repository and write:package scopes.
 set -euo pipefail
 
-host=${GITEA_URL:-https://git.sol}
-owner=${GITEA_OWNER:-testr}
+host=${GITEA_URL:-https://github.com/LunaBaloona/Virpil_devices_on_Linux}
+owner=${GITEA_OWNER:-LunaBaloona}
 repo=${GITEA_REPO:-Virpil_devices_on_Linux}
 arch_repo=virpil              # pacman repository: [virpil]
 deb_dist=stable deb_comp=main # apt: "stable main"
@@ -118,7 +118,7 @@ if [[ $code == 404 ]]; then
 elif [[ $code == 200 ]]; then
   id=$(jq -r .id release.json)
   echo "   release $id exists"
-  [[ -z $notes ]] || echo "   (--notes ignored: edit the existing release's notes on git.sol)"
+  [[ -z $notes ]] || echo "   (--notes ignored: edit the existing release's notes)"
 else
   echo "release lookup failed: HTTP $code" >&2; exit 1
 fi
