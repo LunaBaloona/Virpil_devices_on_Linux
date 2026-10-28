@@ -8,34 +8,46 @@ pkgdesc="Keep flight sticks and throttles working in Elite Dangerous (and other 
 arch=('x86_64')
 url="https://github.com/LunaBaloona/Virpil_devices_on_Linux"
 license=('GPL-3.0-or-later')
-depends=('gcc-libs' 'glibc')
+# the .cargo/config.toml in the source builds a fully static binary
+depends=()
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('28adccef41c5bcccd784f2776b41670bc016bb44a6bc7971eb60a002a54a0b94')
+# build-packages.sh fills in the real hash from the pushed tag before running
+# makepkg, because the archive can only be hashed after the tag exists on
+# github. If you build with plain makepkg, replace SKIP with that hash first:
+#   curl -sL $url/archive/v$pkgver.tar.gz | sha256sum
+sha256sums=('SKIP')
 
-_srcdir=virpil_devices_on_linux/elite-hotas-fix
+# GitHub unpacks the archive with top directory Virpil_devices_on_Linux-$pkgver.
+# Whether makepkg strips that single directory depends on its name heuristic,
+# so enter the source dir in a way that is correct either way.
+_enter_src() {
+  cd "$srcdir"
+  [[ -d Virpil_devices_on_Linux-$pkgver ]] && cd "Virpil_devices_on_Linux-$pkgver"
+  cd elite-hotas-fix
+}
 
 prepare() {
-  cd "$_srcdir"
+  _enter_src
   export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd "$_srcdir"
+  _enter_src
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
   cargo build --frozen --release
 }
 
 check() {
-  cd "$_srcdir"
+  _enter_src
   export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --release
 }
 
 package() {
-  cd "$_srcdir"
+  _enter_src
   install -Dm755 target/release/$pkgname "$pkgdir/usr/bin/$pkgname"
   install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
 }

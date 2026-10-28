@@ -3,6 +3,17 @@
 This is an automation of the steps described in [Virpil_devices_on_Linux](https://github.com/LunaBaloona/Virpil_devices_on_Linux/blob/main/Linux_config_and_gaming.md). Elite-hotas-fix keeps Virpil joysticks and throttles working in Elite Dangerous (or any Steam game) running under Proton on Linux.
 It's a single static binary that runs on any x86_64 distro: Arch, Debian, Fedora and others.
 
+## Download
+
+Get the [latest release](https://github.com/LunaBaloona/Virpil_devices_on_Linux/releases/latest) — pick the file for your distro (all checksums are in `SHA256SUMS`):
+
+| Distro | File | Install with |
+|---|---|---|
+| Arch | `*.pkg.tar.zst` | `sudo pacman -U <file>` |
+| Debian / Ubuntu | `*_amd64.deb` | `sudo apt install ./<file>` |
+| Fedora / openSUSE | `*.x86_64.rpm` | `sudo dnf install ./<file>` |
+| Anything x86_64 | `*-x86_64-linux.tar.gz` | unpack and run `./elite-hotas-fix` |
+
 
 ## The problem it fixes
 
@@ -91,4 +102,4 @@ cargo build --release --target x86_64-unknown-linux-musl
 # binary: target/x86_64-unknown-linux-musl/release/elite-hotas-fix
 ```
 
-To build the release tarball and all three packages for a tagged version, run `packaging/build-packages.sh`. It needs `makepkg`, `dpkg-deb` and `rpmbuild` (on Arch: `pacman -S dpkg rpm-tools`) and writes everything, with `SHA256SUMS`, to `dist/`.
+To build the release tarball and the packages for a tagged version, run `packaging/build-packages.sh`. It needs `makepkg`, `dpkg-deb` and `rpmbuild` (on Arch: `pacman -S dpkg rpm-tools`); a package whose tool is missing is skipped with a warning. Everything built is written, with `SHA256SUMS`, to `dist/`. To publish a tagged version as a GitHub Release, run `packaging/publish.sh` — the full process is in [packaging/RELEASE.md](packaging/RELEASE.md).

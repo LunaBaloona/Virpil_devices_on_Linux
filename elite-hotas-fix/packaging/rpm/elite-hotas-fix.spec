@@ -35,5 +35,5 @@ install -Dm755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
-* Wed 25 Oct 2026 luna <https://github.com/LunaBaloona/Virpil_devices_on_Linux> - 1.0.0-1
+* Wed Oct 28 2026 luna <https://github.com/LunaBaloona/Virpil_devices_on_Linux> - 1.0.0-1
 - First release

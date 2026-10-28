@@ -1,0 +1,51 @@
+# AUR submission copy. Before submitting or updating:
+#   1. set pkgver (and the git tag must exist on github)
+#   2. paste the real source hash:  curl -sL \
+#        https://github.com/LunaBaloona/Virpil_devices_on_Linux/archive/v<ver>.tar.gz | sha256sum
+#   3. regenerate metadata:  makepkg --printsrcinfo > .SRCINFO
+#   4. test in a clean env:  systemd-run --scope -p Network=unshare pacman -U <result>
+#      (or at least makepkg -d)
+pkgname=elite-hotas-fix
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Keep flight sticks and throttles working in Elite Dangerous (and other Proton games) on Linux"
+arch=('x86_64')
+url="https://github.com/LunaBaloona/Virpil_devices_on_Linux"
+license=('GPL-3.0-or-later')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('REPLACE_WITH_ARCHIVE_HASH')
+
+# GitHub unpacks the archive with top directory Virpil_devices_on_Linux-$pkgver.
+# Whether makepkg strips that single directory depends on its name heuristic,
+# so enter the source dir in a way that is correct either way.
+_enter_src() {
+  cd "$srcdir"
+  [[ -d Virpil_devices_on_Linux-$pkgver ]] && cd "Virpil_devices_on_Linux-$pkgver"
+  cd elite-hotas-fix
+}
+
+prepare() {
+  _enter_src
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  _enter_src
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
+}
+
+check() {
+  _enter_src
+  export RUSTUP_TOOLCHAIN=stable
+  cargo test --frozen --release
+}
+
+package() {
+  _enter_src
+  install -Dm755 target/release/$pkgname "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+}
