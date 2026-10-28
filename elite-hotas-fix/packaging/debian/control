@@ -1,0 +1,13 @@
+Package: elite-hotas-fix
+Version: @VERSION@-1
+Architecture: amd64
+Maintainer: luna <https://github.com/LunaBaloona>
+Installed-Size: @SIZE@
+Section: utils
+Priority: optional
+Homepage: https://github.com/LunaBaloona/Virpil_devices_on_Linux
+Description: Keep Virpil and other flight sticks and throttles working in Proton games
+ Removes the stale "&IG_00" gamepad entries that Proton leaves in a game's
+ Wine registry, which make Elite Dangerous see a flight stick or throttle
+ as an "XB360 Pad". Also checks raw HID access, can install a udev rule,
+ and prints the PROTON_ENABLE_HIDRAW launch options for your devices.
