@@ -8,7 +8,7 @@
 %global _build_id_links none
 
 Name:           elite-hotas-fix
-Version:        1.0.0
+Version:        1.0.1
 Release:        1
 Summary:        Keep flight sticks and throttles working in Proton games
 License:        GPL-3.0-or-later
@@ -35,5 +35,5 @@ install -Dm755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
-* Wed Oct 28 2026 luna <https://github.com/LunaBaloona/Virpil_devices_on_Linux> - 1.0.0-1
+* Wed Oct 28 2026 luna <https://github.com/LunaBaloona/Virpil_devices_on_Linux> - 1.0.1-1
 - First release

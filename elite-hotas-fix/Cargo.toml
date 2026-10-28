@@ -1,6 +1,6 @@
 [package]
 name = "elite-hotas-fix"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 description = "Keeps flight sticks and throttles working in Elite Dangerous (and other Proton games) on Linux"
 license = "GPL-3.0-or-later"
