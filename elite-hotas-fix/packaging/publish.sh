@@ -60,9 +60,13 @@ fi
 
 local_tag=$(git -C "$tool" rev-parse -q --verify "refs/tags/$tag^{commit}") ||
   { echo "no tag $tag; tag the release first" >&2; exit 2; }
-# "^{}" resolves annotated tags to their commit; plain tags appear as-is.
-remote_tag=$(git -C "$tool" ls-remote origin "refs/tags/$tag^{}" "refs/tags/$tag" |
-             xargs -r echo | tr ' ' '\n' | grep -E '^[0-9a-f]{40}$' | head -1)
+# ls-remote lists an annotated tag's object first and the peeled commit on a
+# "tag^{}" line; compare commits, so prefer the peeled line and fall back to
+# the ref line for plain (non-annotated) tags.
+lsr=$(git -C "$tool" ls-remote origin "refs/tags/$tag^{}" "refs/tags/$tag" || true)
+remote_tag=$(awk -v r="refs/tags/$tag^{}" '$2==r {print $1; exit}' <<<"$lsr")
+[[ -n $remote_tag ]] ||
+  remote_tag=$(awk -v r="refs/tags/$tag" '$2==r {print $1; exit}' <<<"$lsr")
 [[ -n $remote_tag && $remote_tag == "$local_tag" ]] ||
   { echo "tag $tag is not on origin (or differs); push it first: git push origin $tag" >&2; exit 2; }
 
