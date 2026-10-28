@@ -1,10 +1,6 @@
-# AUR submission copy. Before submitting or updating:
-#   1. set pkgver (and the git tag must exist on github)
-#   2. paste the real source hash:  curl -sL \
-#        https://github.com/LunaBaloona/Virpil_devices_on_Linux/archive/v<ver>.tar.gz | sha256sum
-#   3. regenerate metadata:  makepkg --printsrcinfo > .SRCINFO
-#   4. test in a clean env:  systemd-run --scope -p Network=unshare pacman -U <result>
-#      (or at least makepkg -d)
+# AUR submission copy (packaging/aur/PKGBUILD + .SRCINFO go to the AUR
+# repo as-is). For a future release: bump pkgver, reset pkgrel to 1, paste
+# the new tag's archive hash, regenerate .SRCINFO, test-build, push.
 pkgname=elite-hotas-fix
 pkgver=1.0.1
 pkgrel=1
@@ -14,7 +10,7 @@ url="https://github.com/LunaBaloona/Virpil_devices_on_Linux"
 license=('GPL-3.0-or-later')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('REPLACE_WITH_ARCHIVE_HASH')
+sha256sums=('3c18a27d8ad9964a052caeef006a5eca24769c5a9a5ab3764c27d03fab4c3c90')
 
 # GitHub unpacks the archive with top directory Virpil_devices_on_Linux-$pkgver.
 # Whether makepkg strips that single directory depends on its name heuristic,
