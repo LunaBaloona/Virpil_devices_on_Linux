@@ -81,7 +81,7 @@ echo "==> Arch package"
 if [[ $skip == *makepkg* ]]; then echo "   (skipped)"; else
 # The PKGBUILD downloads its source from the tag on github, so the tag must
 # be pushed before building, and only now can its archive be hashed.
-arch_url=$(sed -n 's/^url="\{1}\([^"]*\)"\{1\}$/\1/p' "$here/arch/PKGBUILD" | head -1)
+arch_url=$(sed -n 's/^url="\(.*\)"$/\1/p' "$here/arch/PKGBUILD" | head -1)
 git -C "$repo" ls-remote --exit-code origin "refs/tags/$tag" >/dev/null 2>&1 ||
   { echo "tag $tag is not on origin; push it first: git push origin $tag" >&2; exit 2; }
 mkdir "$work/arch"
