@@ -1,4 +1,4 @@
-# Builds elite-hotas-fix from the tagged source on git.sol.
+# Builds elite-hotas-fix from the tagged source on github.
 #   cd elite-hotas-fix/packaging/arch && makepkg -si
 
 pkgname=elite-hotas-fix
@@ -6,7 +6,7 @@ pkgver=1.0.0
 pkgrel=1
 pkgdesc="Keep flight sticks and throttles working in Elite Dangerous (and other Proton games) on Linux"
 arch=('x86_64')
-url="https://git.sol/testr/Virpil_devices_on_Linux"
+url="https://github.com/LunaBaloona/Virpil_devices_on_Linux"
 license=('GPL-3.0-or-later')
 depends=('gcc-libs' 'glibc')
 makedepends=('cargo')
